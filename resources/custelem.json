@@ -1,0 +1,25 @@
+{
+  "name": "CustomElements",
+  "uri": "http://some-company/schema/bpmn/customelements",
+  "prefix": "custele",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "types": [
+    {
+      "name": "TaskNode",
+      "extends": [
+        "bpmn:Task"
+      ],
+      "properties": [
+        {
+          "name": "customElementName",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    }
+  ],
+  "emumerations": [],
+  "associations": []
+}
