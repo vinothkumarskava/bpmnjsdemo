@@ -1,6 +1,8 @@
 import $ from 'jquery';
 
 import PaletteProvider from 'bpmn-js/lib/features/palette/PaletteProvider';
+import ContextPadProvider from 'bpmn-js/lib/features/context-pad/ContextPadProvider';
+
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import propertiesPanelModule from 'bpmn-js-properties-panel';
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/bpmn';
@@ -28,16 +30,56 @@ var _getPaletteEntries = PaletteProvider.prototype.getPaletteEntries;
 PaletteProvider.prototype.getPaletteEntries = function(element) {
     var entries = _getPaletteEntries.apply(this);
     delete entries['create.intermediate-event'];
-    delete entries['create.end-event'];
+    delete entries['create.task'];
     delete entries['create.data-object'];
     delete entries['create.end-event'];
-    delete entries['participant-expanded'];
+    delete entries['create.participant-expanded'];
+    delete entries['create.subprocess-expanded'];
     delete entries['create.data-store'];
     delete entries['space-tool'];
-    delete entries['global-connect-tool'];    
+    delete entries['global-connect-tool'];
     return entries; 
+};
+
+function updateAction(type, group, className, title, options) {
+
+  function createListener(event) {
+    var shape = elementFactory.createShape(assign({ type: type }, options));
+
+    if (options) {
+      shape.businessObject.di.isExpanded = options.isExpanded;
+    }
+
+    create.start(event, shape);
+  }
+
+  var shortType = type.replace(/^bpmn:/, '');
+
+  return {
+    group: group,
+    className: className,
+    title: title || translate('Create {type}', { type: shortType }),
+    action: {
+      dragstart: createListener,
+      click: createListener
+    }
+  };
 }
 
+var _getContextPadEntries = ContextPadProvider.prototype.getContextPadEntries;
+ContextPadProvider.prototype.getContextPadEntries = function(element) {
+    var entries = _getContextPadEntries.apply(this, [element]);
+    delete entries['append.end-event'];
+    delete entries['append.append-task'];
+    delete entries['append.intermediate-event'];
+    delete entries['append.text-annotation'];
+    delete entries['replace'];
+
+    //entries['create.exclusive-gateway'].action.dragstart = updateAction();
+    //entries['create.exclusive-gateway'].action.click = updateAction();
+    return entries; 
+};
+      
 var container = $('#js-drop-zone');
 // hide quality assurance if user clicks outside
 /*window.addEventListener('click', (event) => {

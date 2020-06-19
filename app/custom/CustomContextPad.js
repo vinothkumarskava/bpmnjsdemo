@@ -60,15 +60,6 @@ export default class CustomContextPad {
     }
 
     return {
-      'append.low-task': {
-        group: 'model',
-        className: 'bpmn-icon-task red',
-        title: translate('Append Task for Shopping Flow'),
-        action: {
-          click: appendServiceTask(SUITABILITY_SHOPPING_FLOW),
-          dragstart: appendServiceTaskStart(SUITABILITY_SHOPPING_FLOW)
-        }
-      },
       'append.average-task': {
         group: 'model',
         className: 'bpmn-icon-task yellow',

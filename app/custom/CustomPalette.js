@@ -35,14 +35,14 @@ export default class CustomPalette {
     }
 
     return {
-      'create.low-task': {
+      'tool-separator3': {
         group: 'activity',
-        className: 'bpmn-icon-task red',
-        title: translate('Create Task for Shopping Flow'),
-        action: {
-          dragstart: createTask(SUITABILITY_SHOPPING_FLOW),
-          click: createTask(SUITABILITY_SHOPPING_FLOW)
-        }
+        separator: true
+      },
+      'average-task-label': {
+        group: 'activity',
+        className: 'pallette-label',
+        html: '<p>Fetch Price</p>'
       },
       'create.average-task': {
         group: 'activity',
@@ -52,6 +52,15 @@ export default class CustomPalette {
           dragstart: createTask(SUITABILITY_FETCH_PRICE),
           click: createTask(SUITABILITY_FETCH_PRICE)
         }
+      },
+      'tool-separator4': {
+        group: 'activity',
+        separator: true
+      },
+      'average-task-label1': {
+        group: 'activity',
+        className: 'pallette-label',
+        html: '<p>Process Price</p>'
       },
       'create.high-task': {
         group: 'activity',
