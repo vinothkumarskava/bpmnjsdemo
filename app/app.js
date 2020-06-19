@@ -32,7 +32,6 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     delete entries['create.intermediate-event'];
     delete entries['create.task'];
     delete entries['create.data-object'];
-    delete entries['create.end-event'];
     delete entries['create.participant-expanded'];
     delete entries['create.subprocess-expanded'];
     delete entries['create.data-store'];
@@ -41,42 +40,13 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
     return entries; 
 };
 
-function updateAction(type, group, className, title, options) {
-
-  function createListener(event) {
-    var shape = elementFactory.createShape(assign({ type: type }, options));
-
-    if (options) {
-      shape.businessObject.di.isExpanded = options.isExpanded;
-    }
-
-    create.start(event, shape);
-  }
-
-  var shortType = type.replace(/^bpmn:/, '');
-
-  return {
-    group: group,
-    className: className,
-    title: title || translate('Create {type}', { type: shortType }),
-    action: {
-      dragstart: createListener,
-      click: createListener
-    }
-  };
-}
-
 var _getContextPadEntries = ContextPadProvider.prototype.getContextPadEntries;
 ContextPadProvider.prototype.getContextPadEntries = function(element) {
     var entries = _getContextPadEntries.apply(this, [element]);
-    delete entries['append.end-event'];
     delete entries['append.append-task'];
     delete entries['append.intermediate-event'];
     delete entries['append.text-annotation'];
     delete entries['replace'];
-
-    //entries['create.exclusive-gateway'].action.dragstart = updateAction();
-    //entries['create.exclusive-gateway'].action.click = updateAction();
     return entries; 
 };
       

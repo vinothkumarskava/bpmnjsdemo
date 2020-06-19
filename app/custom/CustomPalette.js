@@ -35,7 +35,7 @@ export default class CustomPalette {
     }
 
     return {
-      'tool-separator3': {
+      'tool-separator4': {
         group: 'activity',
         separator: true
       },
@@ -53,7 +53,7 @@ export default class CustomPalette {
           click: createTask(SUITABILITY_FETCH_PRICE)
         }
       },
-      'tool-separator4': {
+      'tool-separator5': {
         group: 'activity',
         separator: true
       },
