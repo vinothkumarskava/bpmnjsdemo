@@ -1,0 +1,15 @@
+{
+	"input_fields" : [{
+		"id" : "shopping_flow",
+		"name" : "Shopping Flow",
+		"options" : ["upgrade", "equipment", "none"]
+	},{
+		"id" : "user_tier",
+		"name" : "User Tier",
+		"options" : ["Silver", "Gold", "Platinum"]
+	},{
+		"id" : "category",
+		"name" : "Category",
+		"options" : null
+	}]
+}
