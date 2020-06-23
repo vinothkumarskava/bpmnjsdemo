@@ -26,36 +26,36 @@
   ],
   "PPAdjustmentOperation": [
     {
-      name: "Markup",
-      value: "Markup"
+      "name": "Markup",
+      "value": "Markup"
     },
     {
-      name: "Markdown",
-      value: "Markdown"
+      "name": "Markdown",
+      "value": "Markdown"
     }
   ],
   "PPRoundoffOperation": [
     {
-      name: "RoundUp",
-      value: "RoundUp"
+      "name": "RoundUp",
+      "value": "RoundUp"
     },
     {
-      name: "RoundDown",
-      value: "RoundDown"
+      "name": "RoundDown",
+      "value": "RoundDown"
     }
   ],
   "PPRoundoffType": [
     {
-      name: "RoundOffMin",
-      value: ".00"
+      "name": "RoundOffMin",
+      "value": ".00"
     },
     {
-      name: "RoundOffMid",
-      value: ".49"
+      "name": "RoundOffMid",
+      "value": ".49"
     },
     {
-      name: "RoundOffMax",
-      value: ".99"
+      "name": "RoundOffMax",
+      "value": ".99"
     }
   ]
 }
