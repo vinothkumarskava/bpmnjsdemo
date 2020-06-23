@@ -46,15 +46,15 @@
   ],
   "PPRoundoffType": [
     {
-      "name": "RoundOffMin",
+      "name": ".00",
       "value": ".00"
     },
     {
-      "name": "RoundOffMid",
+      "name": ".49",
       "value": ".49"
     },
     {
-      "name": "RoundOffMax",
+      "name": ".99",
       "value": ".99"
     }
   ]
