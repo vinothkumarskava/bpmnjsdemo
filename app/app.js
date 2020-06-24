@@ -14,14 +14,10 @@ import custeleExtension from '../resources/custelem';
 function getElementsConfigurations() {
   return new Promise((resolve, reject) => {
     $.ajax({
-      headers: {
-        "Accept": "application/vnd.github.VERSION.raw",
-        "Authorization": "token c15d20dd0b7b7f0326b15316757dbdf53a35631d"
-      },
-      url: "https://api.github.com/repos/vinothkumarskava/bpmnjsdemo/contents/resources/PriceRuleConfiguration.json",
+      url: configURL,
       success: function(response) {
-        if(response.length > 0) {
-          resolve(JSON.parse(response));
+        if(!$.isEmptyObject(response)) {
+          resolve(response);
         } else {
           reject(response);
         }
