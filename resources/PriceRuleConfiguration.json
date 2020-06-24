@@ -23,39 +23,5 @@
       "name": "Category",
       "options": null
     }
-  ],
-  "PPAdjustmentOperation": [
-    {
-      "name": "Markup",
-      "value": "Markup"
-    },
-    {
-      "name": "Markdown",
-      "value": "Markdown"
-    }
-  ],
-  "PPRoundoffOperation": [
-    {
-      "name": "RoundUp",
-      "value": "RoundUp"
-    },
-    {
-      "name": "RoundDown",
-      "value": "RoundDown"
-    }
-  ],
-  "PPRoundoffType": [
-    {
-      "name": ".00",
-      "value": ".00"
-    },
-    {
-      "name": ".49",
-      "value": ".49"
-    },
-    {
-      "name": ".99",
-      "value": ".99"
-    }
   ]
 }
