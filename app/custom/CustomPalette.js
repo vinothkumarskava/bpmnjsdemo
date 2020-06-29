@@ -1,3 +1,5 @@
+import CustomXML from './CustomXML';
+
 const SUITABILITY_PROCESS_PRICE = "PROCESS_PRICE",
       SUITABILITY_FETCH_PRICE = "FETCH_PRICE",
       SUITABILITY_SHOPPING_FLOW = "SHOPPING_FLOW";
@@ -21,8 +23,10 @@ export default class CustomPalette {
 
     function createTask(suitabilityScore) {
       return function(event) {
-        const businessObject = bpmnFactory.create('bpmn:Task');
-  
+        var businessObject = bpmnFactory.create('bpmn:Task');
+      
+        businessObject.ioSpecification = CustomXML.getIOSpecification(bpmnFactory);
+        businessObject.dataInputAssociation = CustomXML.getInpAssociation(bpmnFactory, true);
         businessObject.customElementName = suitabilityScore;
   
         const shape = elementFactory.createShape({

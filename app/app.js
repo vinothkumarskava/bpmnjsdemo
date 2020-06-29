@@ -9,7 +9,8 @@ import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/bpmn
 import BpmnPropertiesProvider from 'bpmn-js-properties-panel/lib/provider/bpmn/BpmnPropertiesProvider';
 import diagramXML from '../resources/diagram.bpmn';
 import customModule from './custom';
-import custeleExtension from '../resources/custelem';
+import custeleExtension from '../resources/custelem.json';
+import bpmnExtension from '../resources/bpmn.json';
 
 function getElementsConfigurations() {
   return new Promise((resolve, reject) => {
@@ -83,7 +84,8 @@ function init(configData)
       propertiesProviderModule
     ],
     moddleExtensions: {
-      custele: custeleExtension
+      custele: custeleExtension,
+      bpmn: bpmnExtension
     },
     keyboard: { bindTo: document }
   });
