@@ -21,8 +21,13 @@ html, body, #container {
   padding: 10px;
 }
 
-.djs-label {
+.djs-label,
+.djs-textContent {
   font-family: 'Arial', sans-serif;
+}
+
+.djs-textContent {
+  font-size: 12px;
 }
 
 .pallette-label{

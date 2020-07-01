@@ -7,32 +7,12 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import propertiesPanelModule from 'bpmn-js-properties-panel';
 import propertiesProviderModule from 'bpmn-js-properties-panel/lib/provider/bpmn';
 import BpmnPropertiesProvider from 'bpmn-js-properties-panel/lib/provider/bpmn/BpmnPropertiesProvider';
-import diagramXML from '../resources/diagram.bpmn';
+import defaultDiagramXML from '../resources/diagram.bpmn';
 import customModule from './custom';
 import custeleExtension from '../resources/custelem.json';
 import bpmnExtension from '../resources/bpmn.json';
 
-var ajaxResult=[];
-
-Promise.all([
-	fetch(configURL),
-	fetch(priceListURL)
-]).then(function (responses) {
-	// Get a JSON object from each of the responses
-	return Promise.all(responses.map(function (response) {
-		return response.json();
-	}));
-}).then(function (data) {
-	// Log the data to the console
-	// You would do something with both sets of data here
-  ajaxResult.push(data[0]);
-  ajaxResult.push(data[1]);
-  init(ajaxResult)
-}).catch(function (error) {
-	console.log(error);
-});
-
-function init(configData)
+function init(configData, diagramXML)
 {
   var _getPaletteEntries = PaletteProvider.prototype.getPaletteEntries;
   PaletteProvider.prototype.getPaletteEntries = function(element) {
@@ -83,12 +63,12 @@ function init(configData)
 
 
   function createNewDiagram() {
-    openDiagram(diagramXML);
+    openDiagram(defaultDiagramXML);
   }
 
-  function openDiagram(diagramXML) {
+  function openDiagram(xml) {
   // import XML
-  bpmnModeler.importXML(diagramXML, (err) => {
+  bpmnModeler.importXML(xml, (err) => {
     if (err) {
       container
         .removeClass('with-diagram')
@@ -209,6 +189,10 @@ function init(configData)
   }, 500);
 
   bpmnModeler.on('commandStack.changed', exportArtifacts);
+
+  if(!isLocal) {
+    openDiagram(diagramXML || defaultDiagramXML);
+  }
 }
 
 // helpers //////////////////////
@@ -225,3 +209,5 @@ function debounce(fn, timeout) {
     timer = setTimeout(fn, timeout);
   };
 }
+
+window.init = init;

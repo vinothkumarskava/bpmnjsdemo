@@ -1,5 +1,5 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
-
+import CustomTextRenderer from './CustomTextRenderer';
 import {
   append as svgAppend,
   attr as svgAttr,
@@ -53,24 +53,30 @@ export default class CustomRenderer extends BaseRenderer {
       const color = this.getColor(suitabilityScore);
       const shapeType = this.getShapeType(suitabilityScore);
       this.setParentNodeStyle(shape, suitabilityScore);
-      const rect = drawRect(parentNode, 30, 20, TASK_BORDER_RADIUS, color, shapeType);
+      const rect = drawRect(parentNode, 25, 20, TASK_BORDER_RADIUS, color, shapeType);
   
       svgAttr(rect, {
-        transform: 'translate(-10, -10)'
+        transform: 'translate(-13, -10)'
       });
 
-      var text = svgCreate('text'); 
+      var text = svgCreate('text');
+      //var customTextRenderer = new CustomTextRenderer({ element: element });
+      //var contentText = this.getContentText(element, suitabilityScore);
+      //var textContent = customTextRenderer.createTextContent(parentNode, contentText || '');
+      var textContent = this.createTextContent(parentNode, element, suitabilityScore);
 
       svgAttr(text, {
         fill: '#fff',
-        transform: 'translate(-5, 5)'
+        transform: 'translate(-8, 5)'
       });
 
-      svgClasses(text).add('djs-label'); 
+      svgClasses(text).add('djs-label');
+      svgClasses(textContent).add('djs-textContent');
     
-      svgAppend(text, document.createTextNode(shapeType)); 
+      svgAppend(text, document.createTextNode(shapeType));
     
       svgAppend(parentNode, text);
+      svgAppend(parentNode, textContent);
     }
 
     return shape;
@@ -108,6 +114,31 @@ export default class CustomRenderer extends BaseRenderer {
       return SHAPE_FETCHPRICE;
     } 
     return SHAPE_PROCESSPRICE;
+  }
+
+  createTextContent(parentNode, element, suitabilityScore) {
+    const businessObject = getBusinessObject(element),
+          customTextRenderer = new CustomTextRenderer({ element: element }),
+          FF_PRICE_LIST = "pricelist",
+          PP_ADJUSTMENT_OPERATION = "ppAdjustmentOperation",
+          PP_ADJUSTMENT_VALUE = "ppAdjustmentValue",
+          PP_ROUNDOFF_OPERATION = "ppRoundoffOperation",
+          PP_ROUNDOFF_VALUE = "ppRoundoffValue",
+          PP_ROUNDOFF_NO_OPERATION = "No rounding off",
+          PP_ADJUSTMENT_NO_OPERATION = "No adjustments";
+    var contentText = "";
+    if (suitabilityScore == SUITABILITY_PROCESS_PRICE) {
+      var adjustmentContentText = businessObject.$attrs[PP_ADJUSTMENT_OPERATION] || PP_ADJUSTMENT_NO_OPERATION;
+      adjustmentContentText = adjustmentContentText + (businessObject.$attrs[PP_ADJUSTMENT_VALUE] ? " " + businessObject.$attrs[PP_ADJUSTMENT_VALUE] : "");
+
+      var roundOffContentText = businessObject.$attrs[PP_ROUNDOFF_OPERATION] || PP_ROUNDOFF_NO_OPERATION;
+      roundOffContentText = roundOffContentText + (businessObject.$attrs[PP_ROUNDOFF_VALUE] ? ": " + businessObject.$attrs[PP_ROUNDOFF_VALUE] : "");
+
+      contentText = adjustmentContentText + ", " + roundOffContentText;
+    } else if (suitabilityScore == SUITABILITY_FETCH_PRICE) {
+      contentText = businessObject.$attrs[FF_PRICE_LIST] || "";
+    }
+    return customTextRenderer.createTextContent(parentNode, contentText);
   }
 
   setParentNodeStyle(parentNode, suitabilityScore)

@@ -50,6 +50,24 @@
   <script>
     var configURL = "https://api.jsonbin.io/b/5ef33d45e2ce6e3b2c78a537/1";
     var priceListURL = "https://api.jsonbin.io/b/5ef33ec397cb753b4d16dd47";
+
+    var ajaxResult=[], isLocal = true;
+
+    Promise.all([
+      fetch(configURL),
+      fetch(priceListURL)
+    ]).then(function (responses) {
+      // Get a JSON object from each of the responses
+      return Promise.all(responses.map(function (response) {
+        return response.json();
+      }));
+    }).then(function (data) {
+      ajaxResult.push(data[0]);
+      ajaxResult.push(data[1]);
+      init(ajaxResult);
+    }).catch(function (error) {
+      console.log(error);
+    });
   </script>
   <script src="app.js"></script>
 </html>
