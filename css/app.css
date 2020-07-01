@@ -651,7 +651,8 @@ label.bpp-hidden {
 /* line 307, node_modules\bpmn-js-properties-panel\styles\properties.less */
 .bpp-field-description {
   margin-top: 5px;
-  color: #999;
+  color: #666;
+  font-style: italic;
 }
 /* line 311, node_modules\bpmn-js-properties-panel\styles\properties.less */
 .bpp-field-description a {
@@ -1033,4 +1034,9 @@ a:link {
 
 .bpp-properties-header {
   display: none !important;
+}
+
+.bpp-checkbox label {
+  margin-bottom: 0px;
+  margin-left: 5px;
 }

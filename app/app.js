@@ -12,33 +12,24 @@ import customModule from './custom';
 import custeleExtension from '../resources/custelem.json';
 import bpmnExtension from '../resources/bpmn.json';
 
-function getElementsConfigurations() {
-  return new Promise((resolve, reject) => {
-    $.ajax({
-      url: configURL,
-      success: function(response) {
-        if(!$.isEmptyObject(response)) {
-          resolve(response);
-        } else {
-          reject(response);
-        }
-      },
-      error: function(error) {
-        reject(error);
-      }
-    });
-  });
-}
+var ajaxResult=[];
 
-// bootstrap diagram functions
-$(function() {
-  getElementsConfigurations()
-  .then(configData => {
-    init(configData);
-  })
-  .catch(error => {
-    console.log("The config file cannot be loaded due to the following error: " + error);
-  })
+Promise.all([
+	fetch(configURL),
+	fetch(priceListURL)
+]).then(function (responses) {
+	// Get a JSON object from each of the responses
+	return Promise.all(responses.map(function (response) {
+		return response.json();
+	}));
+}).then(function (data) {
+	// Log the data to the console
+	// You would do something with both sets of data here
+  ajaxResult.push(data[0]);
+  ajaxResult.push(data[1]);
+  init(ajaxResult)
+}).catch(function (error) {
+	console.log(error);
 });
 
 function init(configData)

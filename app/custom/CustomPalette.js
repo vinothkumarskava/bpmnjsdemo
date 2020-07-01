@@ -2,7 +2,9 @@ import CustomXML from './CustomXML';
 
 const SUITABILITY_PROCESS_PRICE = "PROCESS_PRICE",
       SUITABILITY_FETCH_PRICE = "FETCH_PRICE",
-      SUITABILITY_SHOPPING_FLOW = "SHOPPING_FLOW";
+      SUITABILITY_SHOPPING_FLOW = "SHOPPING_FLOW",
+      FETCH_PRICE_DISPLAY_NAME = "Fetch Price",
+      PROCESS_PRICE_DISPLAY_NAME = "Process Price";
 
 export default class CustomPalette {
   constructor(bpmnFactory, create, elementFactory, palette, translate) {
@@ -28,6 +30,7 @@ export default class CustomPalette {
         businessObject.ioSpecification = CustomXML.getIOSpecification(bpmnFactory);
         businessObject.dataInputAssociation = CustomXML.getInpAssociation(bpmnFactory, true);
         businessObject.customElementName = suitabilityScore;
+        businessObject.name = (suitabilityScore == SUITABILITY_FETCH_PRICE ? FETCH_PRICE_DISPLAY_NAME : PROCESS_PRICE_DISPLAY_NAME);
   
         const shape = elementFactory.createShape({
           type: 'bpmn:Task',
