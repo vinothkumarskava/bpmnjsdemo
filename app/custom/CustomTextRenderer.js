@@ -30,7 +30,7 @@ export default class CustomTextRenderer{
 
     svgClasses(text).add('djs-label');
 
-    svgAppend(parentGfx, text);
+    //svgAppend(parentGfx, text);
 
     return text;
   }

@@ -12,7 +12,7 @@ import customModule from './custom';
 import custeleExtension from '../resources/custelem.json';
 import bpmnExtension from '../resources/bpmn.json';
 
-function init(configData, diagramXML)
+function init(configData, diagramXML, savePriceRuleCbk)
 {
   var _getPaletteEntries = PaletteProvider.prototype.getPaletteEntries;
   PaletteProvider.prototype.getPaletteEntries = function(element) {
@@ -184,6 +184,9 @@ function init(configData, diagramXML)
     });
 
     saveDiagram(function(err, xml) {
+      if (!isLocal && savePriceRuleCbk && typeof(savePriceRuleCbk) == 'function') {
+        savePriceRuleCbk(err, xml);
+      }
       setEncoded(downloadLink, 'diagram.bpmn', err ? null : xml);
     });
   }, 500);

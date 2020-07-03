@@ -129,10 +129,10 @@ export default class CustomRenderer extends BaseRenderer {
     var contentText = "";
     if (suitabilityScore == SUITABILITY_PROCESS_PRICE) {
       var adjustmentContentText = businessObject.$attrs[PP_ADJUSTMENT_OPERATION] || PP_ADJUSTMENT_NO_OPERATION;
-      adjustmentContentText = adjustmentContentText + (businessObject.$attrs[PP_ADJUSTMENT_VALUE] ? " " + businessObject.$attrs[PP_ADJUSTMENT_VALUE] : "");
+      adjustmentContentText += (businessObject.$attrs[PP_ADJUSTMENT_VALUE] ? ": " + businessObject.$attrs[PP_ADJUSTMENT_VALUE] + (businessObject.$attrs[PP_ADJUSTMENT_VALUE].includes("%") ? "" : "%") : "");
 
       var roundOffContentText = businessObject.$attrs[PP_ROUNDOFF_OPERATION] || PP_ROUNDOFF_NO_OPERATION;
-      roundOffContentText = roundOffContentText + (businessObject.$attrs[PP_ROUNDOFF_VALUE] ? ": " + businessObject.$attrs[PP_ROUNDOFF_VALUE] : "");
+      roundOffContentText += (businessObject.$attrs[PP_ROUNDOFF_VALUE] ? ": " + businessObject.$attrs[PP_ROUNDOFF_VALUE] : "");
 
       contentText = adjustmentContentText + ", " + roundOffContentText;
     } else if (suitabilityScore == SUITABILITY_FETCH_PRICE) {
